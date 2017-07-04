@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Web Calculator</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <style>
+        .btn-lg {
+            min-width: 56px;
+        }
+
+        .btn-wide {
+            min-width: 116px;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container">
+    <div class="page-header text-center">
+        <h2>Web Calculator</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div id="calculator">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn btn-default btn-lg btn-eval">7</div>
+                        <div class="btn btn-default btn-lg btn-eval">8</div>
+                        <div class="btn btn-default btn-lg btn-eval">9</div>
+                        <div class="btn btn-default btn-lg btn-eval">/</div>
+                        <div class="btn btn-default btn-lg" id="btn-delete"><-</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn btn-default btn-lg btn-eval">4</div>
+                        <div class="btn btn-default btn-lg btn-eval">5</div>
+                        <div class="btn btn-default btn-lg btn-eval">6</div>
+                        <div class="btn btn-default btn-lg btn-eval">*</div>
+                        <div class="btn btn-default btn-lg btn-eval">(</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn btn-default btn-lg btn-eval">1</div>
+                        <div class="btn btn-default btn-lg btn-eval">2</div>
+                        <div class="btn btn-default btn-lg btn-eval">3</div>
+                        <div class="btn btn-default btn-lg btn-eval">-</div>
+                        <div class="btn btn-default btn-lg btn-eval">)</div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="btn btn-default btn-lg btn-eval">0</div>
+                        <div class="btn btn-default btn-lg btn-eval">.</div>
+                        <div class="btn btn-default btn-lg btn-eval">+</div>
+                        <div class="btn btn-default btn-lg btn-wide" id="btn-result">=</div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="hidden-md hidden-lg"/>
+        </div>
+
+        <div class="col-md-6 col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Expression</div>
+                <div id="expression" class="panel-body"></div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">Result</div>
+                <div id="result" class="panel-body"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var expressionSelector = '#expression';
+    var resultSelector = '#result';
+
+    $(document).ready(function () {
+        $('.btn-eval').click(function (e) {
+            $(expressionSelector).text($(expressionSelector).text() + e.target.innerText);
+        });
+
+        $('#btn-result').click(function () {
+            var result;
+
+            try {
+                result = eval($(expressionSelector).text());
+
+                $(expressionSelector).text(result);
+                $(resultSelector).text(result);
+            } catch (e) {
+                result = 'Malformed expression';
+
+                $(resultSelector).text(result);
+            }
+        });
+
+        $('#btn-delete').click(function () {
+            $(expressionSelector).text($(expressionSelector).text().slice(0, -1));
+        });
+    });
+</script>
+
+</body>
+</html>
